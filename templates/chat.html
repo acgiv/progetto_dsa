@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <TITLE>Il mio primo documento HTML</TITLE>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        function ExecPythonCommand(pythonCommand) {
+            var request = new XMLHttpRequest()
+            request.open("GET", "/" + pythonCommand, true)
+            request.send()
+        }
+
+
+    </script>
+</HEAD>
+<BODY>
+<section class="gradient-custom vh-100">
+    <div class="container py-5 ">
+
+        <div class="row h-100 d-flex align-items-center justify-content-center">
+            <div class="col-md-6 col-lg-7 col-xl-7">
+            <div class="overflow-auto addScroll">
+                <ul class="list-unstyled text-white">
+
+                    <li class="d-flex justify-content-between mb-4">
+                        <img src="{{ url_for('static', filename='image/png/pepper.png') }}" alt="avatar"
+                             class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
+                        <div class="card mask-custom">
+                            <div class="card-header d-flex justify-content-between p-3"
+                                 style="border-bottom: 1px solid rgba(255,255,255,.3);">
+                                <p class="fw-bold mb-0">Assistent Pepper</p>
+                                <p class="text-light small mb-0"><i class="far fa-clock"></i> 12 mins ago</p>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-0">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut
+                                    labore et dolore magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="d-flex justify-content-between mb-4">
+                        <div class="card mask-custom w-100">
+                            <div class="card-header d-flex justify-content-between p-3"
+                                 style="border-bottom: 1px solid rgba(255,255,255,.3);">
+                                <p class="fw-bold mb-0">Lara Croft</p>
+                                <p class="text-light small mb-0"><i class="far fa-clock"></i> 13 mins ago</p>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-0">
+                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+                                    doloremque
+                                    laudantium.
+                                </p>
+                            </div>
+                        </div>
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
+                             class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
+                    </li>
+                    <li class="d-flex justify-content-between mb-4">
+                        <img src="{{ url_for('static', filename='image/png/pepper.png') }}" alt="avatar"
+                             class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
+                        <div class="card mask-custom">
+                            <div class="card-header d-flex justify-content-between p-3"
+                                 style="border-bottom: 1px solid rgba(255,255,255,.3);">
+                                <p class="fw-bold mb-0">Assistent Pepper</p>
+                                <p class="text-light small mb-0"><i class="far fa-clock"></i> 10 mins ago</p>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-0">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut
+                                    labore et dolore magna aliqua.
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    {% if testo_list %}
+                        {% for testo in testo_list %}
+                                <li class="d-flex justify-content-between mb-4">
+                                <div class="card mask-custom w-100">
+                                    <div class="card-header d-flex justify-content-between p-3"
+                                         style="border-bottom: 1px solid rgba(255,255,255,.3);">
+                                        <p class="fw-bold mb-0">Lara Croft</p>
+                                        <p class="text-light small mb-0"><i class="far fa-clock"></i> {{format_data}}</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-0">
+                                            {{ testo }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
+                                     class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
+                        {% endfor %}
+                    {% endif %}
+                    </li>
+                </ul>
+            </div>
+
+                <div class="form-outline form-white">
+                    <form action="/" method="post">
+                        <textarea class="form-control" name="testo" rows="4"></textarea>
+                        <button type="submit">Mostra Testo</button>
+                    </form>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+</BODY>
+</HTML>

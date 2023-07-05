@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='js/register.js')}}"></script>
+
+    <title>Title</title>
+</head>
+<body>
+
+<!------ Include the above in your HEAD tag ---------->
+
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <div class="mt-4">
+                <img class="fadeIn first mb-4" width="110" height="73" src="{{ url_for('static', filename='image/png/pepper1.png') }}"
+                     alt="gender-neutral-user"/>
+            </div>
+            <form action="/chat", method="POST">
+                <input type="text" id="User" class="fadeIn second mb-2" name="user_name" placeholder="login">
+                <input type="password" id="password" class="fadeIn third mb-5" name="password" placeholder="password">
+                <input type="submit" class="fadeIn fourth" value="Log In">
+            </form>
+
+            <!-- Remind Passowrd -->
+            <div class="mt-4">
+                <div class="d-flex justify-content-center links">
+                    Don't have an account? <a href="{{url_for('register')}}"  class="ml-2">Sign Up</a>
+                </div>
+
+                <div class="d-flex justify-content-center links">
+                    <a class="underlineHover" href="#">Forgot your password?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
