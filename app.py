@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from pymongo import MongoClient
 from dotenv import load_dotenv
+import hashlib
 import configparser
 import datetime
 import os
@@ -17,33 +18,47 @@ testo_list = []
 
 
 @app.route('/', methods=['GET', 'POST'])
-def chat():
-    # print([e for e in app.db.utenti.find({})])
-    if request.method == 'POST':
-        testo = request.form['testo']
-        if not len(testo.strip()).__eq__(0):
-            testo_list.append(testo)
-    return render_template("chat.html", testo_list=testo_list,
-                           format_data=datetime.datetime.today().strftime("%d %H:%M:%S"))
+def home():
+    return render_template('login.html')
 
 
-# Pagina di accesso
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        nome_utente = request.form["user_name"]
-        password = request.form['password']
-        app.db.utenti.insert_one({"username": nome_utente, "password": password})
-        return render_template("chat.html")
+        if request.form.get("user_name") is not None:
+            h = hashlib.new('sha256')
+            h.update(request.form.get("password").encode())
+            print(request.form.get("user_name"), request.form.get("password"))
+            lista = list(app.db.utenti.find({"user_name": request.form.get("user_name"), "password": h.hexdigest()}))
+            if len(lista).__eq__(1):
+                return render_template("chat.html")
+            else:
+                return render_template('login.html')
     return render_template('login.html')
+
+
+@app.route('/chat', methods=['GET', 'POST'])
+def chat():
+    return render_template("chat.html",
+                           format_data=datetime.datetime.today().strftime("%d %H:%M:%S"))
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if request.method == 'POST':
+        h = hashlib.new('sha256')
+        h.update(request.form.get("password").encode())
+        new_user = {"user_name": request.form.get("user_name"),
+                    "email": request.form.get("email"),
+                    "password": h.hexdigest(),
+                    "sex_type": request.form.get('inlineRadioOptions'),
+                    "date_birth": request.form.get("date_birth")}
+        app.db.utenti.insert_one(new_user)
+        return render_template('login.html')
     return render_template('register.html')
 
 
-@app.route('/verifier', methods=['POST'])
+@ app.route('/verifier', methods=['POST'])
 def verifier_text():
     rest = {"user_name": False, "email": False, "password": ""}
 

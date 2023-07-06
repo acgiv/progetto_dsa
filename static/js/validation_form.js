@@ -220,6 +220,7 @@ $(document).ready(function () {
                     document.getElementById("security_password").classList.add("d-none");
                 } else {
                     document.getElementById("err_conf_message_pass").classList.remove("d-none");
+                    document.getElementById("security_password").classList.remove("d-none");
                     document.getElementById("password").classList.replace("mb-2", "mb-0");
                     const cont = control_security_password(password);
                     document.getElementById("bar_percent").style.width = cont.toString() + "%";
