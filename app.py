@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request
 from pymongo import MongoClient
 from dotenv import load_dotenv
+import configparser
 import datetime
-from Register import Client
 import os
 
 load_dotenv()
+config = configparser.ConfigParser()
+config.read(".\\config\\gobal_variable.ini")
 
 app = Flask(__name__)
 client = MongoClient(os.getenv('CONNECTION_DB'))
@@ -38,19 +40,26 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-
     return render_template('register.html')
 
 
 @app.route('/verifier', methods=['POST'])
 def verifier_text():
-    rest = {"user_name": "", "email": "", "password": "",}
-    client_register = Client(application=app, username=request.form.get("user_name"), email=request.form.get("email"),
-                             password=request.form.get("password"),
-                             confirm_password=request.form.get("confirm-password"),
-                             genere=request.form.get("sex_type"),
-                             date_birth=request.form.get("date_birth"))
-    rest["user_name"], rest["email"], rest["password"] = client_register.control_user_email_password()
+    rest = {"user_name": False, "email": False, "password": ""}
+
+    if request.form.get("user_name") is not None:
+        lista = list(app.db.utenti.find({"username": request.form.get("user_name")}))
+        if not len(lista).__eq__(0):
+            rest.update(user_name=config["ERROR-MESSAGE"]['error_user_name'])
+
+    if request.form.get("email") is not None:
+        lista = list(app.db.utenti.find({"email": request.form.get("email")}))
+        if not len(lista).__eq__(0):
+            rest.update(email=config["ERROR-MESSAGE"]['error_email'])
+
+    if not request.form.get("password").__eq__(request.form.get("confirm-password")):
+        rest.update(password=config["ERROR-MESSAGE"]['error_equal_password'])
+
     return rest
 
 
