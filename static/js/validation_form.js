@@ -150,7 +150,7 @@ jQuery.validator.addMethod("validate_username", function(value) {
                      document.getElementById("date_birth-error").classList.add("px-2");
                  }
 
-             }, success: function (label, element) {
+             },/* success: function (label, element) {
                  if (element.name === "user_name") {
                      if (document.getElementById("user_email_error_message").classList.contains("d-none")) {
                          document.getElementById("content_error_user_name").classList.add("d-none");
@@ -165,7 +165,7 @@ jQuery.validator.addMethod("validate_username", function(value) {
                      document.getElementById("content_err_password").classList.add("d-none");
                  }
 
-             },
+             },*/
              invalidHandler: function (event, validator) {
                  const firstErrorElement = validator.errorList[0].element;
                  $(firstErrorElement).focus();
@@ -259,3 +259,13 @@ function password_show_hide(id_element, show_eye, hide_eye) {
         hide_password.style.display = "none";
     }
 }
+
+
+$(document).ready(function () {
+    $(document.getElementById("login_register")).on('input', function () {
+        console.log(document.getElementById("error_login").classList.contains("d-none"));
+        if(!document.getElementById("error_login").classList.contains("d-none")){
+             document.getElementById("error_login").classList.add("d-none");
+        }
+    });
+});

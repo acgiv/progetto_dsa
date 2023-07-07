@@ -1,29 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    <script src="{{ url_for('static', filename='js/validation_form.js') }}"></script>
-
-    <title>Title</title>
-</head>
-
-<body>
-<div class="wrapper fadeInDown">
+{% extends 'layout.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="wrapper fadeInDown size_body">
     <div id="formContent">
         <div>
             <h2 class="fadeIn first text-uppercase h4 title_creation_dsa text-center mt-5 mb-4">REGISTRATI</h2>
@@ -104,33 +82,4 @@
     </div>
 </div>
 
-</body>
-<noscript>
-    <style>
-        .errorContainer {
-            background-color: #FFF;
-            color: #0F1419;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 10%;
-            font-size: 16px;
-        }
-
-        html, body {
-            background-color: #FFF !important;
-            height: 100%
-        }
-
-        #main-content {
-            display: none;
-        }
-    </style>
-    <div class="errorContainer">
-        <img alt="" width="156" height="65" data-sticky-width="115" data-sticky-height="48" data-sticky-top="33"
-             src="../img/logo_5-tacche.gif">
-        <h1>JavaScript non è disponibile.</h1>
-        <p>JavaScript è disabilitato nel browser. Per continuare a utilizzare 5Tacche.it, abilita JavaScript o passa a
-            un browser supportato.</p>
-    </div>
-</noscript>
-</html>
+{% endblock %}
