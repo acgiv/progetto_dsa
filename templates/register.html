@@ -1,85 +1,93 @@
 {% extends 'layout.html' %}
 {% block title %}Register{% endblock %}
 {% block content %}
-<div class="wrapper fadeInDown size_body">
-    <div id="formContent">
-        <div>
-            <h2 class="fadeIn first text-uppercase h4 title_creation_dsa text-center mt-5 mb-4">REGISTRATI</h2>
-        </div>
+        <div  class=" d-flex  size_content fadeInDown justify-content-center position_card flex-column align-items-center">
+            <div class="position-relative text-center shadow-lg p-3 mb-5 bg-body rounded card-content">
+                    <div>
+                        <h4 class="fadeIn first card-title mt-4 mb-4">REGISTRATI</h4>
+                    </div>
 
-        <form id="form_control" class="mt-2" action="/register"  method="POST">
-            <div id="form_register">
-                <input type="text" id="user_name" class="fadeIn second mb-2 " name="user_name" placeholder="Username">
-                <div id="content_error_user_name" class="px-4 d-flex flex-column d-none">
-                    <div id="user_email_validation_error" class="p-2 px-3 d-none"></div>
-                    <div id="user_email_error_message" class="p-2 px-2 justify-content-start pt-1 d-none ">
-                        <p id="message_user" class="px-2 text-start error mb-1"></p>
-                    </div>
-                </div>
-                <input type="text" id="email" class="fadeIn second mb-2" name="email" placeholder="Email">
-                <div id="content_error_email" class="px-4 d-flex flex-column d-none">
-                    <div id="email_validation_error" class="p-2 px-3 d-none "></div>
-                    <div id="email_error_message" class="p-2 px-2 justify-content-start pt-1 d-none ">
-                        <p id="message_email_exist" class="px-2 text-start error mb-1"></p>
-                    </div>
-                </div>
+                    <form id="form_control" class="mt-2" action="/register" method="POST">
+                        <div id="form_register">
+                            <input type="text" id="user_name" class="card_action_component card_input fadeIn second mb-2 " name="user_name"
+                                   placeholder="Username">
+                            <div id="content_error_user_name" class="px-4 d-flex flex-column d-none">
+                                <div id="user_email_validation_error" class="p-2 px-3 d-none"></div>
+                                <div id="user_email_error_message" class="p-2 px-2 justify-content-start pt-1 d-none ">
+                                    <p id="message_user" class="px-2 text-start card_error_message mb-1"></p>
+                                </div>
+                            </div>
+                            <input type="text" id="email" class="card_action_component card_input fadeIn second mb-2" name="email" placeholder="Email">
+                            <div id="content_error_email" class="px-4 d-flex flex-column d-none">
+                                <div id="email_validation_error" class="p-2 px-3 d-none "></div>
+                                <div id="email_error_message" class="p-2 px-2 justify-content-start pt-1 d-none ">
+                                    <p id="message_email_exist" class="px-2 text-start card_error_message mb-1"></p>
+                                </div>
+                            </div>
 
-                <input type="password" id="password" class="fadeIn third password mb-2" name="password" placeholder="password">
-                <span id="eye_pass" class="eye_password  fadeIn third" onclick="password_show_hide('password', 'show_eye', 'hide_eye')">
-                     <i class="fas fa-eye eye_password " id="show_eye"></i>
-                     <i class="fas fa-eye-slash d-none eye_password" id="hide_eye"></i>
-                 </span>
-                <div id="security_password" class=" mx-auto bar d-none ">
-                    <div class="progress  mb-2">
-                        <div id="bar_percent" class="progress-bar  bar_percent" role="progressbar"></div>
-                    </div>
+                            <input type="password" id="password" class="card_action_component card_input fadeIn third position-relative mb-2" name="password"
+                                   placeholder="password">
+                            <span id="eye_pass" class="card_eye_password fadeIn third"
+                                  onclick="password_show_hide('password', 'show_eye', 'hide_eye')">
+                         <i class="fas fa-eye card_eye_password" id="show_eye"></i>
+                         <i class="fas fa-eye-slash d-none card_eye_password" id="hide_eye"></i>
+                     </span>
+                            <div id="security_password" class=" mx-auto card_content_bar d-none ">
+                                <div class="progress mb-2">
+                                    <div id="bar_percent" class="card_bar_percent" role="progressbar"></div>
+                                </div>
+                            </div>
+                            <div id="content_err_password" class="px-4 d-flex flex-column d-none">
+                                <div id="error_password" class=" p-2 "></div>
+                            </div>
+                            <input type="password" id="confirm-password" class="card_action_component card_input fadeIn third" name="confirm_password"
+                                   placeholder="conferma password">
+                            <span id="eye_conf_pass" class="card_eye_password fadeIn third" onclick="password_show_hide('confirm-password', 'show_eye_conf' ,'hide_eye_conf')">
+                         <i class="fas fa-eye card_eye_password " id="show_eye_conf"></i>
+                         <i class="fas fa-eye-slash d-none card_eye_password" id="hide_eye_conf"></i>
+                    </span>
+                            <div id="content_err_conf_password" class="px-4 d-flex flex-column d-none">
+                                <div id="error_conf_password" class=" px-2 p-2"></div>
+                                <div id="err_conf_message_pass" class="p-2 px-2 justify-content-start pt-1 d-none">
+                                    <p id="message_password" class="px-2 text-start card_error_message d-none mb-1"></p>
+                                </div>
+                            </div>
+                            <div class=" d-md-flex justify-content-start align-items-center mb-1 mt-2 px-4 me-1 ">
+                                <h6 class=" px-3 fadeIn fourth mb-1  "> Genere: </h6>
+                                <div class="form-check form-check-inline mb-0  ">
+                                    <input class=" fadeIn fourth form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="sex_woman" value="Donna">
+                                    <label class="fadeIn fourth form-check-label" for="femaleGender">Donna</label>
+                                </div>
+                                <div class="form-check form-check-inline mb-0 ">
+                                    <input class=" fadeIn fourth form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="sex_man" value="Uomo">
+                                    <label class=" fadeIn fourth form-check-label" for="maleGender">Uomo</label>
+                                </div>
+                                <div class="form-check start form-check-inline">
+                                    <input class="fadeIn fourth form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="sex_other"
+                                           value="Altro">
+                                    <label class="fadeIn fourth form-check-label" for="otherGender">Altro</label>
+                                </div>
+                            </div>
+                            <div id="content_err_genere" class="px-4 d-flex d-done">
+                                <div id="error_genere" class=" px-2"></div>
+                            </div>
+                            <div class=" px-4 d-flex justify-content-xl-start  mt-2">
+                                <label class="px-3 py-1 fadeIn fifth active " for="data_ascita">Data di nascita:</label>
+                                <input id="date_birth" class="card_action_component fadeIn fifth card_data mx-auto mb-5" type="date"
+                                       name="date_birth">
+                            </div>
+                            <div id="all_message_date" class="px-4  d-none">
+                                <div id="error_date" class="px-2 mt-1   "></div>
+                            </div>
+                            <input type="submit" class="card_action_component card_submit fadeIn sixth mb-5" id="crea_account" value="Crea" disabled="true">
+                        </div>
+                    </form>
                 </div>
-                <div id="content_err_password" class="px-4 d-flex flex-column d-none">
-                    <div id="error_password" class=" px-2 p-2 "></div>
-                </div>
-                <input type="password" id="confirm-password" class="fadeIn third" name="confirm_password" placeholder="conferma password">
-                <span id="eye_conf_pass" class="eye_password  fadeIn third" onclick="password_show_hide('confirm-password', 'show_eye_conf' ,'hide_eye_conf')">
-                     <i class="fas fa-eye eye_password " id="show_eye_conf"></i>
-                     <i class="fas fa-eye-slash d-none eye_password" id="hide_eye_conf"></i>
-                </span>
-                <div  id="content_err_conf_password" class="px-4 d-flex flex-column d-none">
-                    <div id="error_conf_password" class=" px-2 p-2"></div>
-                    <div id="err_conf_message_pass" class="p-2 px-2 justify-content-start pt-1 d-none">
-                        <p id="message_password" class="px-2 text-start error d-none mb-1"></p>
-                    </div>
-                </div>
-                <div class=" d-md-flex justify-content-start align-items-center mb-1 mt-2 px-4 me-1 ">
-                    <h6 class=" px-3 fadeIn fourth mb-1  "> Genere: </h6>
-                    <div class="form-check form-check-inline mb-0  ">
-                        <input class=" fadeIn fourth form-check-input" type="radio" name="inlineRadioOptions" id="sex_woman" value="Donna">
-                        <label class="fadeIn fourth form-check-label" for="femaleGender">Donna</label>
-                    </div>
-                    <div class="form-check form-check-inline mb-0 ">
-                        <input class=" fadeIn fourth form-check-input" type="radio" name="inlineRadioOptions" id="sex_man"  value="Uomo">
-                        <label class=" fadeIn fourth form-check-label" for="maleGender">Uomo</label>
-                    </div>
-                    <div class="form-check start form-check-inline">
-                        <input class="fadeIn fourth form-check-input" type="radio" name="inlineRadioOptions"
-                               id="sex_other"
-                               value="Altro">
-                        <label class="fadeIn fourth form-check-label" for="otherGender">Altro</label>
-                    </div>
-                </div>
-                <div id="content_err_genere" class="px-4 d-flex d-done">
-                    <div id="error_genere" class=" px-2"></div>
-                </div>
-                <div class=" px-4 d-flex justify-content-xl-start  mt-2">
-                    <label class="px-3 py-1 fadeIn fifth active " for="data_ascita">Data di nascita:</label>
-                    <input id="date_birth" class="fadeIn fifth data_dsa mx-auto mb-5" type="date" name="date_birth">
-                </div>
-                <div id="all_message_date" class="px-4  d-none">
-                    <div id="error_date" class="px-2 mt-1   "></div>
-                </div>
-                <input type="submit" class="fadeIn sixth mb-5" id="crea_account" value="Crea" disabled="true">
             </div>
-        </form>
-
+        </div>
     </div>
-</div>
 
 {% endblock %}

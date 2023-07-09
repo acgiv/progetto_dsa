@@ -107,7 +107,7 @@ jQuery.validator.addMethod("validate_username", function(value) {
                      required: "Il campo genere è obbligatorio!."
                  },
                  date_birth: {
-                     required: "Il campo genere è obbligatorio!."
+                     required: "Il campo data è obbligatorio!."
                  }
 
              },
@@ -263,7 +263,6 @@ function password_show_hide(id_element, show_eye, hide_eye) {
 
 $(document).ready(function () {
     $(document.getElementById("login_register")).on('input', function () {
-        console.log(document.getElementById("error_login").classList.contains("d-none"));
         if(!document.getElementById("error_login").classList.contains("d-none")){
              document.getElementById("error_login").classList.add("d-none");
         }

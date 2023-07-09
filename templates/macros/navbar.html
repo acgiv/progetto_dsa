@@ -17,12 +17,19 @@
                 <li class="nav-item">
                     <a class="nav-link {% if active_page == 'home' %}active{% endif %}" href={{ url_for('home')}}>Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if active_page == 'login' %}active{% endif %}" href={{ url_for('login')}}>Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if active_page == 'register' %}active{% endif %}" href={{ url_for('register') }}>Registrati</a>
-                </li>
+                     <li class="nav-item">
+                        <a class="nav-link {% if active_page == 'login'%} active {% elif session == True %} d-none{% endif %}" href={{ url_for('login')}}>Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if active_page == 'register' %}active{%  elif session == True %} d-none{% endif %}" href={{ url_for('register') }}>Registrati</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  {% if active_page == 'chat' %}active {% elif session == False %}d-none {% endif %}" href={{ url_for('chat') }}>Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if session == False %}d-none{% endif %}" href={{ url_for('logout') }}>Logout</a>
+                    </li>
+
             </ul>
         </div>
     </div>
