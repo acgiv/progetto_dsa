@@ -34,6 +34,11 @@
   border-radius: 5px 5px 5px 5px;
 }
 
+.card_input:focus{
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
+
 
 .card_action_component:active{
    -moz-transform: scale(0.95);
@@ -48,7 +53,24 @@
   border-bottom: 2px solid #5fbae9;
 }
 
-.card_submit:hover  {
+.card_submit{
+  background-color: #56baed;
+  color: white;
+  padding: 15px 80px;
+  font-size: 13px;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+   box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  margin: 4px 20px 40px 20px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.card_submit:hover, .botton_new:hover  {
   background-color: #39ace7;
 }
 
@@ -193,37 +215,6 @@
 @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
-/* FORM TYPOGRAPHY*/
-input[type=button], input[type=submit], input[type=reset]  {
-  background-color: #56baed;
-  border: none;
-  color: white;
-  padding: 15px 80px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  text-transform: uppercase;
-  font-size: 13px;
-  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-  margin: 5px 20px 40px 20px;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-}
-
-
-
-
-input[type=text]:focus, input[type=password]:focus{
-  background-color: #fff;
-  border-bottom: 2px solid #5fbae9;
-}
-
 
 /* OTHERS */
 
@@ -241,19 +232,39 @@ input[type=text]:focus, input[type=password]:focus{
     float: left;
 }
 
-
-
 .size_content{
    height: 82vh;
 }
-
 
 .avatar_chat{
   width: 45px; height: 100%;
 }
 
-.botton_chat {
+.chat_botton_send {
     color: #5fbae9;
 }
 
+.chat_botton_send:hover{
+  color: #39ace7;
+}
 
+.botton_new {
+  background-color: #56baed;
+  color: white;
+  padding: 15px 100px;
+  font-size: 13px;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+   box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.chat_message{
+  max-width: 150px
+}

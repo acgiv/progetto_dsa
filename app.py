@@ -1,11 +1,9 @@
 import functools
-
 from flask import Flask, render_template, request, session, redirect, url_for
 from pymongo import MongoClient
 from dotenv import load_dotenv
 from passlib.hash import pbkdf2_sha256
 import configparser
-import datetime
 import os
 
 load_dotenv()
@@ -30,7 +28,6 @@ def login_required(route):
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    print((session.get("username") is not None))
     return render_template('layout.html', active_page='home', session=(session.get("username") is not None))
 
 
@@ -85,8 +82,31 @@ def verifier_text():
     return rest
 
 
+@app.route('/create_new_chat', methods=['POST'])
+def create_message():
+    message = '''<li class="p-2 border-bottom">
+                                            <a href="#!" class="d-flex justify-content-between text-decoration-none">
+                                                <div class="d-flex flex-row">
+                                                    <div>
+                                                        <img
+                                                                src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp'
+                                                                alt="avatar"
+                                                                class="d-flex align-self-center me-4 pt-1"
+                                                                width="50">
+                                                        <span class="badge bg-success badge-dot"></span>
+                                                    </div>
+                                                    <div class="pt-2 p-2">
+                                                        <p class="fw-bold mb-0 text-decoration-none">New chat</p>
+                                                        <p class="small text-muted text-truncate chat_message d-inline-block">Hello, Are you theressssssssssssssssssssssssssssssssssssssssssssss?</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>'''
+    return message
+
+
 @app.route('/send_message', methods=['POST'])
-def add_div():
+def send_message():
     message = '''<div id="message_robot" class="d-flex flex-row justify-content-start">
                                    
                                     <div>

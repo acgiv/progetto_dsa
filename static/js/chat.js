@@ -4,12 +4,17 @@ function send_message_text() {
     type: 'POST',
     success: function(data) {
       $("#chat").append($(data));
-
-      const messageElement = document.getElementById('message');
-      messageElement.classList.add('typing-animation');
-
-
     }
   });
 }
 
+function create_new_chat() {
+  $.ajax({
+    url: '/create_new_chat',
+    type: 'POST',
+    success: function(data) {
+      $("#new_chat").append($(data));
+
+    }
+  });
+}
