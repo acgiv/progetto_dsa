@@ -53,6 +53,12 @@ jQuery.validator.addMethod("validate_username", function(value) {
     return /^([a-zA-Z0-9_.\-])+$/.test(value);
     }, "Errore nel formato.");
 
+jQuery.validator.addMethod("validate_year", function(value) {
+
+
+    console.log(new Date().getFullYear(),new Date(value).getFullYear());
+    return (new Date().getFullYear()-new Date(value).getFullYear())>=6;
+    }, "Devi avere minimo 6 anni");
 
  function control_email() {
      $(document).ready(function () {
@@ -82,7 +88,9 @@ jQuery.validator.addMethod("validate_username", function(value) {
                  },
                  date_birth: {
                      required: true,
-                     date: true
+                     date: true,
+                     validate_year:true
+
                  }
              },
              messages: {
