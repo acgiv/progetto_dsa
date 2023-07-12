@@ -72,3 +72,16 @@ function reformulate_message(id_message){
   });
 }
 
+function send_message_text_pepper(id_message){
+  $.ajax({
+      url: '/send_message_text_pepper',
+      type: 'POST',
+      data: {
+      "id_chat":id_message_click,
+       "id_message":id_message
+    },success: function (data){
+      console.log("cliccato");
+    }
+  });
+}
+

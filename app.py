@@ -1,7 +1,7 @@
 import functools
-
+import requests
 import openai
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from pymongo import MongoClient
 from dotenv import load_dotenv
 from passlib.hash import pbkdf2_sha256
@@ -108,7 +108,7 @@ def create_message_robot(text, id_message, info_arrive_message):
                     {text}
                 </p>
                 <div>
-                    <a onclick="send_message_text()" class="ms-3"><i class="fas fa-robot chat_botton_send"></i></a>
+                    <a onclick="send_message_text_pepper(\'message_{id_message}\')" class="ms-3"><i class="fas fa-robot chat_botton_send"></i></a>
                     <a onclick="reformulate_message(\'message_{id_message}\')" class="ms-3"><i class="fas fa-sync-alt chat_botton_send"></i></a>
                 </div>
                 </div>
@@ -198,7 +198,6 @@ def reformulate_message():
     date = datetime.today()
     id_chat = int(request.form.get("id_chat").replace("number_chat_", ""))
     id_message = int(request.form.get("id_message").replace("message_", ""))
-    print(id_message)
     info_send_message = {"hour_minutes": date.strftime("%H:%M %p"), "Month_day": date.strftime("%b %d")}
     result = list(app.db[f"{session['username']}_chat"].find({"number_chat": id_chat,
                                                               "message.id_message": id_message},
@@ -211,6 +210,19 @@ def reformulate_message():
                    respost_chat_gpt,
                    info_send_message)
     return respost_chat_gpt
+
+@app.route('/send_message_text_pepper', methods=['GET', 'POST'])
+def send_message_text_pepper():
+    id_chat = int(request.form.get("id_chat").replace("number_chat_", ""))
+    id_message = int(request.form.get("id_message").replace("message_", ""))
+    result = list(app.db[f"{session['username']}_chat"].find({"number_chat": id_chat,
+                                                              "message.id_message": id_message},
+                                                             {'message.$': id_message}))[0]
+    text = result['message'][0]["text"]
+    server2_url = 'http://localhost:5001/'
+    response = requests.post(server2_url, json={'message': text})
+    print(response.text)
+    return "true"
 
 
 @app.route('/register', methods=['GET', 'POST'])
