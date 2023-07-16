@@ -38,17 +38,25 @@ def login_required(route):
         if session.get("username") is None:
             return redirect(url_for(".login"))
         return route(*args, **kwargs)
+    return route_wrapper
 
+
+def exit_session(route):
+    @functools.wraps(route)
+    def route_wrapper(*args, **kwargs):
+        if not session.get("username") is None:
+            session.clear()
+        return route(*args, **kwargs)
     return route_wrapper
 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-
     return render_template('layout.html', active_page='home', session=(session.get("username") is not None))
 
 
 @app.route('/login', methods=['GET', 'POST'])
+@exit_session
 def login():
     if request.method == 'POST':
         if request.form.get("user_name") is not None:
@@ -175,6 +183,7 @@ def send_message_text_pepper():
 
 
 @app.route('/register', methods=['GET', 'POST'])
+@exit_session
 def register():
     if request.method == 'POST':
         new_user = {"user_name": request.form.get("user_name"),
