@@ -1,23 +1,42 @@
 let id_message_click ;
 
+function change_title(text){
+    let id_chat = id_message_click.replace("number_chat_", "");
+    $.ajax({
+    url: '/change_title',
+    type: 'POST',
+    data:{
+      "chat_textarea":text,
+      "id_chat": id_chat
+    }, success: function(data) {
+              if(data !== "false"){
+                document.getElementById("title_number_chat_".concat(id_chat)).innerText = data.replace('\"', '');
+                $("#new_chat").find("#title_number_chat_".concat(id_chat)).text(data);
+            }
+        }
+     });
+}
+
 function send_message_text() {
+  let text = document.getElementById("chat_textarea").value;
   $.ajax({
     url: '/send_message',
     type: 'POST',
     data:{
-      "chat_textarea":document.getElementById("chat_textarea").value,
+      "chat_textarea":text,
       "id_chat": id_message_click
     },
     success: function(data) {
-      $("#chat").append($(data));
-      const text = document.getElementById("chat_textarea").value;
+      $("#chat").append($(data.message));
       document.getElementById("chat_textarea").value="";
-      response_message(text)
+      response_message(text);
+      change_title(text);
+
     }
   });
 }
 
-function response_message(text) {
+function response_message(text, title) {
   $.ajax({
     url: '/respost_message',
     type: 'POST',
@@ -30,6 +49,7 @@ function response_message(text) {
     }
   });
 }
+
 
 
 function create_new_chat() {

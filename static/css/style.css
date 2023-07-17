@@ -271,3 +271,11 @@
 .cursor_pointer:hover{
   cursor: pointer;
 }
+
+#chat_textarea{
+  background-color: #f6f6f6;
+  color: #0d0d0d;
+  font-size: 15px;
+  text-decoration: none;
+  border-radius: 5px 5px 5px 5px;
+}

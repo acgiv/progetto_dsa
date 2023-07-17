@@ -114,6 +114,18 @@ class Chat:
             }
         )
 
+    def set_title(self, id_chat, id_title):
+        self.app.db[f"{self.session['username']}_chat"].update_one(
+            {
+                "number_chat": id_chat,
+            },
+            {
+                "$set": {
+                    "title": id_title,
+                }
+            }
+        )
+
     def search_message(self, id_chat, id_message):
         return list(self.app.db[f"{self.session['username']}_chat"]
                     .find({"number_chat": id_chat,
@@ -124,3 +136,19 @@ class Chat:
         return self.app.db[f"{self.session['username']}_chat"].find({'number_chat': id_chat,
                                                                      'message.id_message': id_message}
                                                                     )[0]["message"][id_message]["text"].__len__()
+
+    def get_last_id_message(self, id_chat):
+        return self.app.db[f"{self.session['username']}_chat"].find(
+            {'number_chat': id_chat})[0]["message"][-1]["id_message"]
+
+    @staticmethod
+    def get_type_person(eta):
+        if eta <= 10:
+            return "bambino"
+        elif eta < 30:
+            return "ragazzo"
+        elif eta < 70:
+            return "persona"
+        else:
+            return "anziano"
+

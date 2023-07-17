@@ -63,7 +63,7 @@ def login():
             lista = list(app.db.utenti.find({"user_name": request.form.get("user_name")}))
             if len(lista).__eq__(1) and pbkdf2_sha256.verify(request.form.get("password"), lista[0]["password"]):
                 session["username"] = request.form.get("user_name")
-                session["genere"] = lista[0]["sex_type"]
+                session["date"] = datetime.now().year - int(lista[0]["date_birth"].split("-")[0])
                 return redirect(url_for("chat", session=True))
             else:
                 return render_template('login.html', error_visible="",
@@ -77,7 +77,7 @@ def vew_chat(chat_number, title, message):
     image_url = url_for('static', filename='image/png/pepper.png')
     message = f'''
     <li class="p-2 border-bottom cursor_pointer">
-        <a id="{chat_number}" class="d-flex justify-content-between text-decoration-none"
+        <a id="{chat_number}" class="d-flex justify-content-center text-decoration-none"
          onclick="view_chat_message(this)">
             <div class="d-flex flex-row">
                 <div>
@@ -89,7 +89,7 @@ def vew_chat(chat_number, title, message):
                 
                 </div>
                 <div class="pt-2 p-2">
-                    <p class="fw-bold mb-0 text-decoration-none">{title}</p>
+                    <p id="title_{chat_number}" class="fw-bold mb-0 text-decoration-none">{title}</p>
                     <p class="small text-muted text-truncate chat_message d-inline-block">{message}</p>
                 </div>
             </div>
@@ -151,7 +151,8 @@ def reformulate_message():
     info_send_message = {"hour_minutes": date.strftime("Modified %H:%M %p"), "Month_day": date.strftime("%b %d")}
     result = app.chat.search_message(id_chat, id_message-1)
     new_id_text = app.chat.number_id_max_text(id_chat, id_message)
-    respost_chat_gpt = write_chatgpt(result["message"][0]["text"])
+    respost_chat_gpt = write_chatgpt(f'me lo spiegheresti a un {app.chat.get_type_person(session["date"])}'
+                                     f'di {session["date"]} questo testo :{result["message"][0]["text"]}')
     app.db[f"{session['username']}_chat"].update_one(
         {
             "number_chat": id_chat,
@@ -214,15 +215,25 @@ def verifier_text():
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
-    session["id_message"] += 1
+    id_chat = int(request.form.get("id_chat").replace("number_chat_", "").split("_")[0])
+    session["id_message"] = app.chat.get_last_id_message(id_chat) + 1
     id_message = session["id_message"]
-    ed_elem = request.form.get("id_chat").replace("number_chat_", "").split("_")
-    id_chat = int(ed_elem[0])
     date = datetime.today()
     info_send_message = {"hour_minutes": date.strftime("%H:%M %p"), "Month_day": date.strftime("%b %d")}
     app.chat.update_message_user(session["username"], id_chat, id_message, f"{session['username']}_chat",
                                  request.form.get("chat_textarea"), info_send_message)
-    return app.chat.create_message_user(request.form.get("chat_textarea"), id_message, info_send_message)
+    return {"message": app.chat.create_message_user(request.form.get("chat_textarea"), id_message, info_send_message)}
+
+
+@app.route('/change_title', methods=['POST'])
+def change_title():
+    id_chat = int(request.form.get("id_chat").replace("number_chat_", "").split("_")[0])
+    title = "false"
+    if session["id_message"].__eq__(1):
+        title = write_chatgpt(f"Mi dai un titolo  di massimo 4 parole del contesto della frase senza citare"
+                              f"il testo {request.form.get('chat_textarea')} ?")
+        app.chat.set_title(id_chat, title.replace('\"', ''))
+    return title
 
 
 @app.route('/respost_message', methods=['POST'])
@@ -232,7 +243,9 @@ def response_message():
     id_text = 0
     session["id_message"] += 1
     info_send_message = {"hour_minutes": date.strftime("%H:%M %p"), "Month_day": date.strftime("%b %d")}
-    respost_chat_gpt = [write_chatgpt(request.form.get("chat_textarea"))]
+    respost_chat_gpt = [write_chatgpt(f'me lo spiegheresti a un {app.chat.get_type_person(session["date"])}'
+                                      f' di {session["date"]} questo testo :{request.form.get("chat_textarea")}')]
+
     elem = {"id_message": session["id_message"],
             "id_text": id_text,
             'why': "pepper",
@@ -266,7 +279,6 @@ def goToNext():
     max_len_id = result["message"][0]["text"].__len__()
     id_text = int(request.form.get("id_text"))+1
     if id_text < max_len_id:
-
         app.chat.set_position_text(id_chat, id_message, id_text)
         return {"on": True, "message": result["message"][0]["text"][id_text], "id_text": id_text,
                 "position_id_text": id_text+1, "id_max_text": max_len_id}
