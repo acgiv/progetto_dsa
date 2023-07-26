@@ -9,6 +9,7 @@ import configparser
 import os
 from datetime import datetime
 from chat import Chat
+from form import LoginForm
 
 load_dotenv()
 config = configparser.ConfigParser()
@@ -58,53 +59,31 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 @exit_session
 def login():
+    form = LoginForm(app=app, session=session)
     if request.method == 'POST':
-        if request.form.get("user_name") is not None:
-            lista = list(app.db.utenti.find({"user_name": request.form.get("user_name")}))
-            if len(lista).__eq__(1) and pbkdf2_sha256.verify(request.form.get("password"), lista[0]["password"]):
-                session["username"] = request.form.get("user_name")
-                session["date"] = datetime.now().year - int(lista[0]["date_birth"].split("-")[0])
-                return redirect(url_for("chat", session=True))
-            else:
-                return render_template('login.html', error_visible="",
-                                       message_error=config["ERROR-MESSAGE"]['error_login'])
-    return render_template('login.html', error_visible="d-none", message_error="", active_page='login',
-                           session=(session.get("username") is not None))
+        form = LoginForm(app=app, session=session)
+        if form.validate_on_submit():
+            return redirect(url_for("chat"))
+        else:
+            return render_template('login.html', error_visible="",
+                                   active_page='login', session=(session.get("username") is not None), form=form)
+    return render_template('login.html', error_visible="d-none", active_page='login',
+                           session=(session.get("username") is not None), form=form)
 
 
 @app.route('/vew_chat', methods=['POST'])
 def vew_chat(chat_number, title, message):
     image_url = url_for('static', filename='image/png/pepper.png')
-    message = f'''
-    <li class="p-2 border-bottom cursor_pointer">
-        <a id="{chat_number}" class="d-flex justify-content-center text-decoration-none"
-         onclick="view_chat_message(this)">
-            <div class="d-flex flex-row">
-                <div>
-                    <img
-                            src="{image_url}"
-                            alt="avatar"
-                            class="d-flex align-self-center me-4 pt-1"
-                            width="50">
-                
-                </div>
-                <div class="pt-2 p-2">
-                    <p id="title_{chat_number}" class="fw-bold mb-0 text-decoration-none">{title}</p>
-                    <p class="small text-muted text-truncate chat_message d-inline-block">{message}</p>
-                </div>
-            </div>
-        </a>
-    </li>'''
+    message = config["CHAT"]["list_chat"].format(chat_number, image_url, chat_number, title, message)
     return message
 
 
 @app.route('/chat', methods=['GET', 'POST'])
 @login_required
 def chat():
-    username = session['username']
     content_view_chat = str()
-    if f"{username}_chat" in app.db.list_collection_names():
-        result = list(app.db[f"{username}_chat"].find())
+    if f"{session['username']}_chat" in app.db.list_collection_names():
+        result = list(app.db[f"{session['username']}_chat"].find())
         session["number_chat"] = result.__len__()
         for element in result:
             number_message = element["message"].__len__()

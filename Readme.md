@@ -18,7 +18,7 @@ Durante le attività di lettura, i bambini con DSA possono commettere i seguenti
    * Sostituiscono una consonante con un'altra che ha una grafia simile, come ad esempio 
    "**E**" al posto di "**F**".
    * Sostituiscono una lettera con un'altra che ha una grafia simile, ma è speculare, come 
-   ad esempio "**b**" con "d**" o "**p**" con "**t**".
+   ad esempio "**b**" con "**d**" o "**p**" con "**t**".
    * Sostituiscono una lettera con un'altra che ha un suono articolatorio simile, come ad 
    esempio "**d**" con "**t**".
    * Sostituiscono una parola con un'altra che non ha alcun grafema in comune.
@@ -76,10 +76,10 @@ dettagliate e coinvolgenti che catturino l'attenzione e stimolino l'interesse. L
 5. Salva il file .env dopo aver inserito tutte le variabili.
 
 Le varibili da inserire sono:
-> CONNECTION_DB = api_key_del_database_MongoDb </br>
-> PATH_STATIC =path_global_Static_this_project exemple ="C:\xampp\htdocs\flaskProject\static"</br>
->SESSION_KEY= key_session_flask  </br>
->TOKEN_CHAT_GPT= token_ChatGpt
+> CONNECTION_DB = API_key_for_the_MongoDB_database </br>
+> PATH_STATIC = Path_global_Static_this_project exemple ="C:\xampp\htdocs\flaskProject\static"</br>
+>SESSION_KEY = Key_session_flask  </br>
+>TOKEN_CHAT_GPT = Token_ChatGpt
 
 ### FILE app.py
 
