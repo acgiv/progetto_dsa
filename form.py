@@ -22,8 +22,8 @@ class LoginForm(FlaskForm):
         self.user = field.data
 
     def check_password(self, field):
-        if len(self.result_search).__eq__(1) and not pbkdf2_sha256.verify(field.data,
-                                                                          self.result_search[0]["password"]):
+        print(len(self.result_search))
+        if len(self.result_search) == 0 or not pbkdf2_sha256.verify(field.data, self.result_search[0]["password"]):
             raise ValidationError(config["ERROR-MESSAGE"]["error_login"])
         else:
             self.session["username"] = self.user

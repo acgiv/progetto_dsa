@@ -15,19 +15,19 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link {% if active_page == 'home' %}active{% endif %}" href={{ url_for('home')}}>Home</a>
+                    <a class="nav-link {% if active_page == 'home' %}active{% endif %}" href={{ url_for('home')}}>HOME</a>
                 </li>
                      <li class="nav-item">
-                        <a class="nav-link {% if active_page == 'login'%} active {% elif session == True %} d-none{% endif %}" href={{ url_for('login')}}>Login</a>
+                        <a class="nav-link {% if active_page == 'login'%} active {% elif session == True %} d-none{% endif %}" href={{ url_for('login')}}>LOGIN</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if active_page == 'register' %}active{%  elif session == True %} d-none{% endif %}" href={{ url_for('register') }}>Registrati</a>
+                        <a class="nav-link {% if active_page == 'register' %}active{%  elif session == True %} d-none{% endif %}" href={{ url_for('register') }}>SIGN UP</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  {% if active_page == 'chat' %}active {% elif session == False %}d-none {% endif %}" href={{ url_for('chat') }}>Chat</a>
+                        <a class="nav-link  {% if active_page == 'chat' %}active {% elif session == False %}d-none {% endif %}" href={{ url_for('chat') }}>CHAT</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if session == False %}d-none{% endif %}" href={{ url_for('logout') }}>Logout</a>
+                        <a class="nav-link {% if session == False %}d-none{% endif %}" href={{ url_for('logout') }}>LOGOUT</a>
                     </li>
 
             </ul>
