@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="221d4b36-13db-44c1-8cc0-accf74099281" name="mongodb+srv://albcec:forzabari2009@dsa.pklckky.mongodb.net/?retryWrites=true&amp;w=majority">
+      <data-sources db="79831832-a45a-4e48-b82f-d709dbfcf17a" ddl="68b76cae-a243-432e-ae2f-3ec4f8fd5102" />
+    </mapping>
+  </component>
+</project>
